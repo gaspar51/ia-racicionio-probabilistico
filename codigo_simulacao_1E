@@ -1,0 +1,29 @@
+% Definindo as probabilidades básicas
+0.5::str(dry); 0.3::str(wet); 0.2::str(snow_covered).
+0.1::flw(true); 0.9::flw(false).
+
+% Definindo as probabilidades condicionais
+0.95::r(true) :- str(snow_covered), flw(true).
+0.4::r(true) :- str(snow_covered), flw(false).
+
+0.9::v(true) :- r(true).
+0.2::v(true) :- r(false).
+
+0.95::b(true).
+0.98::k(true).
+
+0.99::li(true) :- v(true), b(true), k(true).
+0.5::li(true) :- v(true), b(true), k(false).
+0.4::li(true) :- v(true), b(false), k(true).
+0.1::li(true) :- v(true), b(false), k(false).
+0.3::li(true) :- v(false), b(true), k(true).
+0.05::li(true) :- v(false), b(true), k(false).
+0.01::li(true) :- v(false), b(false), k(true).
+0.001::li(true) :- v(false), b(false), k(false).
+
+% Calculando a probabilidade total de R dado Str = snow_covered
+0.455::r(true) :- str(snow_covered).
+0.545::r(false) :- str(snow_covered).
+
+% Consulta para P(V | Str = snow_covered)
+query(v(true)) :- str(snow_covered).
